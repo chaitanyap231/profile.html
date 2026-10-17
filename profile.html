@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Profile Card - Project Atlas</title>
+  
+  <!-- Modern Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #080711;
+      --card-bg: rgba(18, 16, 38, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-inner-border: rgba(255, 255, 255, 0.15);
+      
+      --accent-1: #6366f1; /* Neon Indigo */
+      --accent-2: #a855f7; /* Vibrant Violet */
+      --accent-3: #ec4899; /* Electric Pink */
+      --accent-gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2) 50%, var(--accent-3));
+      
+      --text-bright: #ffffff;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--bg-dark);
+      padding: 2rem;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Animated Background Orbs */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.45;
+      animation: floatOrb 12s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 380px;
+      height: 380px;
+      background: var(--accent-1);
+      top: 15%;
+      left: 20%;
+    }
+
+    .orb-2 {
+      width: 420px;
+      height: 420px;
+      background: var(--accent-3);
+      bottom: 10%;
+      right: 20%;
+      animation-delay: -6s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 50px) scale(1.1); }
+    }
+
+    /* Outer Wrapper for Gradient Border Effect */
+    .card-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      padding: 1px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.03) 50%, rgba(168, 85, 247, 0.3) 100%);
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7),
+                  0 18px 36px -18px rgba(99, 102, 241, 0.25);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    }
+
+    .card-wrapper:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.8),
+                  0 0 40px 0 rgba(168, 85, 247, 0.35);
+    }
+
+    /* Main Glass Card */
+    .profile-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 27px;
+      padding: 2.25rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Card Accent Banner Top Glowing Light */
+    .card-banner {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background: var(--accent-gradient);
+      box-shadow: 0 0 15px 2px var(--accent-2);
+    }
+
+    /* Header Accessories (Status & Team Tag) */
+    .card-header-tags {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent-2);
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      padding: 4px 10px;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      color: #4ade80;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    /* Avatar Container & Glowing Ring */
+    .avatar-container {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.25rem;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      animation: rotateRing 8s linear infinite;
+      opacity: 0.85;
+    }
+
+    @keyframes rotateRing {
+      100% { transform: rotate(360deg); }
+    }
+
+    .avatar-img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0f0d22;
+      background: #181530;
+      z-index: 2;
+    }
+
+    /* User Profile Info */
+    .user-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-bright);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+
+    .user-role {
+      font-size: 0.875rem;
+      font-weight: 600;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.85rem;
+      letter-spacing: 0.2px;
+    }
+
+    .user-bio {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    /* Mini Stats Counter Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 0.85rem 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-box h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-box p {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    /* Skills Pill Tags */
+    .skills-section {
+      margin-bottom: 1.75rem;
+    }
+
+    .skills-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-dim);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .skill-tag {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25 ease;
+    }
+
+    .skill-tag i {
+      color: var(--accent-2);
+      font-size: 0.85rem;
+    }
+
+    .skill-tag:hover {
+      background: rgba(168, 85, 247, 0.15);
+      border-color: rgba(168, 85, 247, 0.4);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Action Buttons & Links */
+    .actions-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-github {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.4);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-github:hover {
+      box-shadow: 0 12px 28px -4px rgba(168, 85, 247, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-icon-only {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      color: var(--text-bright);
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-icon-only:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glowing Orbs -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
+  <!-- Profile Card Container -->
+  <div class="card-wrapper">
+    <div class="profile-card">
+      
+      <div class="card-banner"></div>
+
+      <!-- Header Tags -->
+      <div class="card-header-tags">
+        <span class="team-badge">PROJECT ATLAS</span>
+        <div class="status-badge">
+          <span class="status-dot"></span> Active
+        </div>
+      </div>
+
+      <!-- Profile Avatar -->
+      <div class="avatar-container">
+        <div class="avatar-ring"></div>
+        <img class="avatar-img" src="https://api.dicebear.com/7.x/bottts/svg?seed=AtlasDeveloper" alt="Developer Avatar">
+      </div>
+
+      <!-- User Info -->
+      <h1 class="user-name">Chaitanya Punj</h1>
+      <h2 class="user-role">Frontend & UI Engineer</h2>
+      <p class="user-bio">
+        Building high-performance design systems and sleek web interface components for Project Atlas.
+      </p>
+
+      <!-- Quick Metrics Bar -->
+      <div class="stats-bar">
+        <div class="stat-box">
+          <h4>24</h4>
+          <p>PRs Merged</p>
+        </div>
+        <div class="stat-box">
+          <h4>100%</h4>
+          <p>Quality</p>
+        </div>
+        <div class="stat-box">
+          <h4>3 Yrs</h4>
+          <p>Exp</p>
+        </div>
+      </div>
+
+      <!-- Skills List (Required 3 Skills) -->
+      <div class="skills-section">
+        <h3 class="skills-title">Core Skills</h3>
+        <ul class="skills-list">
+          <li class="skill-tag"><i class="fa-brands fa-html5"></i> HTML5 / CSS3</li>
+          <li class="skill-tag"><i class="fa-brands fa-js"></i> JavaScript</li>
+          <li class="skill-tag"><i class="fa-brands fa-git-alt"></i> Git Workflow</li>
+        </ul>
+      </div>
+
+      <!-- GitHub Link & Action (With aria-label for Task 4 self-review) -->
+      <div class="actions-group">
+        <a href="https://github.com/chaitanyap231" 
+           class="btn-github" 
+           aria-label="Visit my GitHub profile">
+          <i class="fa-brands fa-github"></i> GitHub Profile
+        </a>
+        <a href="#" class="btn-icon-only" aria-label="Send Email">
+          <i class="fa-regular fa-paper-plane"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
